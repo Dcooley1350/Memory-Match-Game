@@ -14,8 +14,8 @@ const char
 
 const int
     BOARD_SIZE = 16,
-    MIN_CELL_NUM = 1,                  // For use in input validation
-    MAX_SPACE_NUM = BOARD_SIZE;
+    MIN_FLIP_NUM = 1,                  // For use in input validation
+    MAX_SPACE_NUM = 4;
 
 const string PLAY_AGAIN = "Would you like to play again?";
 
@@ -40,15 +40,15 @@ void resetStream();
 
 // Game function prototypes
 void displayInstructions();
-Cell ** createBoard();
+const Cell ** createBoard();
 void shuffle(const Cell **);
 void getMove(Move&, const Cell**);
 void getMove(Move&, Move&, const Cell**);
 void showBoard(const Cell**);
 void showBoard(const Move&, const Cell**);
-void showBoard(const Move&, const Move&, const Cell**);
+void showBoard(const Move&, const Move&,  const Cell**);
 bool checkMatch(const Move&, const Move&);
 void updateBoard(const Move&, const Move&, const Cell**);
-bool checkEndGame(Cell **);
+bool checkEndGame(const Cell**);
 
 #endif //WK5LABPARTBDCOOLEY_MATCHINGGAME_HPP

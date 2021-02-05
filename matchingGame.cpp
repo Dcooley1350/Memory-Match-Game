@@ -82,9 +82,9 @@ bool validateCharacterInput(const char input, const char *validInputs, const int
 void displayInstructions()
 {
     cout << "Welcome to Memory match!" << endl
-    << "You will flip pairs of cards. If they match, they will be removed from the game-board" << endl
+    << "You will flip a pair of cards. If they match, they will be removed from the game-board" << endl
     << "If the pair does not match, they will be flipped back face-down" << endl
-    << "Your goal is to empty the board in as few flips as possible" << endl
+    << "Your goal is to empty the board in as few turns as possible" << endl
     << "Good Luck!" << endl;
 }
 
@@ -144,7 +144,7 @@ void updateBoard(const Move &, const Move &, const Cell **)
 
 }
 
-bool checkEndGame(Cell **)
+bool checkEndGame(const Cell **)
 {
 
 }
