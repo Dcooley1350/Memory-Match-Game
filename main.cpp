@@ -3,6 +3,9 @@
 #include "matchingGame.hpp"
 
 int main() {
+    // Seed rand
+    srand(static_cast<unsigned int>(time(nullptr)));
+
     // Greet user and display instructions
     displayInstructions();
 
@@ -11,7 +14,7 @@ int main() {
         std::cout << "New Game initializing!" << std::endl;
 
         // Initialize all game data points
-        const Cell ** gameBoard = createBoard();
+        Cell ** gameBoard = createBoard();
         Move flip1{}, flip2{};
         int turnCount = 0;
 

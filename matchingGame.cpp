@@ -99,37 +99,61 @@ void resetStream()
 }
 
 // Game function definitions
-Cell **createBoard()
+Cell ** createBoard()
 {
-    return nullptr;
+    // Dynamically create gameboard
+    Cell ** gameBoard = new Cell*[BOARD_SIZE];
+
+    // Dynamically fill Cells to false and value=empty so we can gen random and check for empty in next loop
+    for (int i = 0; i < BOARD_SIZE ; ++i) {
+        *(gameBoard + i ) = new Cell{false, GAME_SPACES[0]};
+    }
+
+    // Loop through possible cell values and fill each cell
+    for (int i = 0; i < NUM_GAME_PIECES; ++i) {
+        // Fill 2 Cells with each value
+        for (int j = 0; j < 2; ++j) {
+            // Keep generating random numbers until empty cell address is found
+            bool cellValueEmpty = false;
+            do {
+                int index = rand() % (BOARD_SIZE - 1);
+                if((*(gameBoard + index))->value == GAME_SPACES[0])
+                {
+                    cellValueEmpty = true;
+                    (*(gameBoard + index))->value = *(GAME_PIECES + i);
+                }
+            } while(!cellValueEmpty);
+        }
+    }
+    return gameBoard;
 }
 
-void shuffle(const Cell **)
+void shuffle(Cell **)
 {
 
 }
 
-void getMove(Move &, const Cell **)
+void getMove(Move &,Cell **)
 {
 
 }
 
-void getMove(Move &, Move &, const Cell **)
+void getMove(Move &, Move &, Cell **)
 {
 
 }
 
-void showBoard(const Cell **)
+void showBoard(Cell **)
 {
 
 }
 
-void showBoard(const Move &, const Cell **)
+void showBoard(const Move &, Cell **)
 {
 
 }
 
-void showBoard(const Move &, const Move &, const Cell **)
+void showBoard(const Move &, const Move &, Cell **)
 {
 
 }
@@ -139,12 +163,12 @@ bool checkMatch(const Move &, const Move &)
     return false;
 }
 
-void updateBoard(const Move &, const Move &, const Cell **)
+void updateBoard(const Move &, const Move &, Cell **)
 {
 
 }
 
-bool checkEndGame(const Cell **)
+bool checkEndGame(Cell **)
 {
 
 }
