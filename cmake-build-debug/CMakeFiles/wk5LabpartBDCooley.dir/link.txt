@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/wk5LabpartBDCooley.dir/main.cpp.o CMakeFiles/wk5LabpartBDCooley.dir/matchingGame.cpp.o  -o wk5LabpartBDCooley 
