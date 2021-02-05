@@ -37,7 +37,7 @@ struct Cell {
 // Helper function prototypes
 int getInteger(const int, const int);
 bool yesOrNo(string);
-bool isThere(const Move&);
+bool isThere(const Move&, Cell**);
 int getIndex(const Move&);
 bool validateCharacterInput(const char, const char *,const int);
 void resetStream();
@@ -51,7 +51,7 @@ void getMove(Move&, Move&, Cell**);
 void showBoard(Cell**);
 void showBoard(const Move&, Cell**);
 void showBoard(const Move&, const Move&, Cell**);
-bool checkMatch(const Move&, const Move&);
+bool checkMatch(const Move&, const Move&, Cell**);
 void updateBoard(const Move&, const Move&, Cell**);
 bool checkEndGame(Cell**);
 

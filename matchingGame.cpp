@@ -59,14 +59,14 @@ bool yesOrNo(string question)
     return playAgain;
 }
 
-bool isThere(const Move &)
+bool isThere(const Move &flip, Cell** gameBoard)
 {
-    return false;
+    return !(*(gameBoard + getIndex(flip)))->found;
 }
 
-int getIndex(const Move &)
+int getIndex(const Move &flip)
 {
-    return 0;
+    return (flip.column * BOARD_DIMENSION + flip.row);
 }
 
 bool validateCharacterInput(const char input, const char *validInputs, const int validInputsLength)
@@ -144,12 +144,12 @@ void showBoard(Cell ** gameBoard)
     }
 }
 
-void showBoard(const Move &, Cell ** gameBoard)
+void showBoard(const Move &flip, Cell ** gameBoard)
 {
     const int STREAM_WIDTH = 4;
     for (int i = 0; i < BOARD_DIMENSION; ++i) {
         for (int j = 0; j < BOARD_DIMENSION; ++j) {
-            cout << setw(STREAM_WIDTH)<< (*(gameBoard + (i * BOARD_DIMENSION) + j))->value;
+            cout << setw(STREAM_WIDTH)<< (*(gameBoard + getIndex(flip)))->value;
         }
         //Output new line at the end of every 'row'
         cout << std::endl;
@@ -161,9 +161,10 @@ void showBoard(const Move &, const Move &, Cell **)
 
 }
 
-bool checkMatch(const Move &, const Move &)
+bool checkMatch(const Move &flip1, const Move &flip2, Cell **gameBoard)
 {
-    return false;
+    // Compare value in cells at the index of each move
+    return (*(gameBoard + getIndex(flip1)))->value == (*(gameBoard + getIndex(flip2)))->value;
 }
 
 void updateBoard(const Move &, const Move &, Cell **)
@@ -171,9 +172,17 @@ void updateBoard(const Move &, const Move &, Cell **)
 
 }
 
-bool checkEndGame(Cell **)
+bool checkEndGame(Cell **gameBoard)
 {
-
+    bool cellsRemaining;
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        // Check found property in each cell, if all are found, game is over
+        if(!(*(gameBoard + i))->found)
+        {
+            cellsRemaining = true;
+        }
+    }
+    return cellsRemaining;
 }
 
 
