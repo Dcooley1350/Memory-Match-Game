@@ -15,7 +15,9 @@ const char
 const int
     BOARD_SIZE = 16,
     MIN_CELL_NUM = 1,                  // For use in input validation
-    MAX_SPACE_NUM = BOARD_SIZE;        // ""
+    MAX_SPACE_NUM = BOARD_SIZE;
+
+const string PLAY_AGAIN = "Would you like to play again?";
 
 // Structs
 struct Move {
@@ -29,11 +31,12 @@ struct Cell {
 };
 
 // Helper function prototypes
-int getInteger(int, int);
+int getInteger(const int, const int);
 bool yesOrNo(string);
 bool isThere(const Move&);
 int getIndex(const Move&);
-bool validateCharInput(const char *, int, char);
+bool validateCharacterInput(const char, const char *,const int);
+void resetStream();
 
 // Game function prototypes
 void displayInstructions();
@@ -46,5 +49,6 @@ void showBoard(const Move&, const Cell**);
 void showBoard(const Move&, const Move&, const Cell**);
 bool checkMatch(const Move&, const Move&);
 void updateBoard(const Move&, const Move&, const Cell**);
+bool checkEndGame(Cell **);
 
 #endif //WK5LABPARTBDCOOLEY_MATCHINGGAME_HPP

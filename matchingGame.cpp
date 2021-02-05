@@ -1,15 +1,61 @@
 
+#include <iomanip>
+#include <iostream>
+#include <limits>
 #include "matchingGame.hpp"
 
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
 // Helper function definitions
-int getInteger(int, int)
+int getInteger(const int min, const int max)
 {
-    return 0;
+    int userInput, validatedInput;
+    bool validInput;
+    do {
+        cin >> userInput;
+        // Validate input
+        if( !cin.fail() && userInput >= min && userInput <= max ) {
+            validInput = true;
+            validatedInput = userInput;
+            resetStream();
+        }
+        else {
+            validInput = false;
+            cout << "Invalid input detected. Try again" << endl;
+        }
+    } while(!validInput);
+
+    return validatedInput;
 }
 
-bool yesOrNo(string)
+bool yesOrNo(string question)
 {
-    return false;
+    char userInput;
+    bool playAgain, validInput;
+    cout << question << endl;
+    do {
+        cin >> userInput;
+        // Uppercase the input to allow lower and uppercase entries
+        userInput = static_cast<char>(toupper(userInput));
+        if(validateCharacterInput(userInput, YES_NO, 2)){
+            validInput = true;
+        }
+        else {
+            cout << "Invalid input detected. Enter Y/N." << endl;
+            resetStream();
+            validInput = false;
+        }
+    } while(!validInput);
+    if(userInput == 'Y'){
+        playAgain = true;
+    }
+    else {
+        playAgain = false;
+    }
+    return playAgain;
 }
 
 bool isThere(const Move &)
@@ -22,14 +68,34 @@ int getIndex(const Move &)
     return 0;
 }
 
-bool validateCharInput(const char *, int, char)
+bool validateCharacterInput(const char input, const char *validInputs, const int validInputsLength)
 {
-    return false;
+    bool validInput = false;
+    for (int i = 0; i < validInputsLength; ++i) {
+        if(validInputs[i] == input) {
+            validInput = true;
+        }
+    }
+    return validInput;
 }
 
 void displayInstructions()
 {
+    cout << "Welcome to Memory match!" << endl
+    << "You will flip pairs of cards. If they match, they will be removed from the game-board" << endl
+    << "If the pair does not match, they will be flipped back face-down" << endl
+    << "Your goal is to empty the board in as few flips as possible" << endl
+    << "Good Luck!" << endl;
+}
 
+void resetStream()
+{
+    const long large = std::numeric_limits<std::streamsize>::max();
+    const char endLine = '\n';
+    // Clear input and errors
+    cin.clear();
+    // Flush the buffer
+    cin.ignore(large,endLine);
 }
 
 // Game function definitions
@@ -74,6 +140,11 @@ bool checkMatch(const Move &, const Move &)
 }
 
 void updateBoard(const Move &, const Move &, const Cell **)
+{
+
+}
+
+bool checkEndGame(Cell **)
 {
 
 }
