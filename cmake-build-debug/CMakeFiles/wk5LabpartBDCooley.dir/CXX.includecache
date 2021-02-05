@@ -19,6 +19,12 @@ iostream
 -
 limits
 -
+algorithm
+-
+random
+-
+chrono
+-
 matchingGame.hpp
 /home/jrwebdevin/Documents/cs162/week5/wk5LabpartBDCooley/matchingGame.hpp
 

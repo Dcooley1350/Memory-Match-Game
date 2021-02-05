@@ -3,6 +3,8 @@
 #include <iostream>
 #include <limits>
 #include <algorithm>
+#include <random>
+#include <chrono>
 #include "matchingGame.hpp"
 
 using std::cin;
@@ -75,7 +77,7 @@ void collectCoordinates(Move &flip)
 {
     cout << ENTER_ROW << endl;
     flip.row = getInteger(MIN_CELL_NUM, MAX_CELL_NUM);
-    cout << ENTER_COLUMN;
+    cout << ENTER_COLUMN << endl;
     flip.column = getInteger(MIN_CELL_NUM, MAX_CELL_NUM);
 }
 
@@ -136,7 +138,8 @@ Cell ** createBoard()
 
 void shuffle(Cell **gameBoard)
 {
-    shuffle(gameBoard, (gameBoard + BOARD_SIZE), rand());
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle(gameBoard, (gameBoard + BOARD_SIZE), std::default_random_engine(seed));
 }
 
 void getMove(Move &flip, Cell **gameBoard)
@@ -178,7 +181,6 @@ void getMove(const Move &otherFlip, Move &thisFlip, Cell **gameBoard)
 
 void showBoard(Cell ** gameBoard)
 {
-    const int STREAM_WIDTH = 4;
     for (int i = 0; i < BOARD_DIMENSION; ++i) {
         for (int j = 0; j < BOARD_DIMENSION; ++j) {
             cout << setw(STREAM_WIDTH)<< (*(gameBoard + (i * BOARD_DIMENSION) + j))->value;
@@ -190,7 +192,6 @@ void showBoard(Cell ** gameBoard)
 
 void showBoard(const Move &flip, Cell ** gameBoard)
 {
-    const int STREAM_WIDTH = 4;
     for (int i = 0; i < BOARD_DIMENSION; ++i) {
         for (int j = 0; j < BOARD_DIMENSION; ++j) {
             cout << setw(STREAM_WIDTH)<< (*(gameBoard + getIndex(flip)))->value;

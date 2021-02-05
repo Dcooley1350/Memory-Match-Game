@@ -12,7 +12,8 @@ const int
     BOARD_SIZE = BOARD_DIMENSION * BOARD_DIMENSION,
     MIN_CELL_NUM = 1,                  // For use in input validation
     MAX_CELL_NUM = 4,
-    NUM_GAME_PIECES = 8;
+    NUM_GAME_PIECES = 8,
+    STREAM_WIDTH = 3;
 
 const char
     GAME_PIECES [8] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' },
