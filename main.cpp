@@ -36,8 +36,18 @@ int main() {
             // Show board with both flips
             showBoard(flip1, flip2, gameBoard);
 
-            // Update board with turn results
-            updateBoard(flip1, flip2, gameBoard);
+            // Check match and conditionally update board
+            if(checkMatch(flip1, flip2, gameBoard))
+            {
+                std::cout << "Match! Well done!" << std::endl;
+                // Update board with turn results
+                updateBoard(flip1, flip2, gameBoard);
+            }
+            else
+            {
+                std::cout << "No Match! Try Again!" << std::endl;
+            }
+
 
         } while (checkEndGame(gameBoard));
 

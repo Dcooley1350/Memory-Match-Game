@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <algorithm>
 #include "matchingGame.hpp"
 
 using std::cin;
@@ -9,6 +10,7 @@ using std::cout;
 using std::endl;
 using std::setw;
 using std::string;
+using std::shuffle;
 
 // Helper function definitions
 int getInteger(const int min, const int max)
@@ -132,9 +134,9 @@ Cell ** createBoard()
     return gameBoard;
 }
 
-void shuffle(Cell **)
+void shuffle(Cell **gameBoard)
 {
-
+    shuffle(gameBoard, (gameBoard + BOARD_SIZE), rand());
 }
 
 void getMove(Move &flip, Cell **gameBoard)
@@ -209,9 +211,10 @@ bool checkMatch(const Move &flip1, const Move &flip2, Cell **gameBoard)
     return (*(gameBoard + getIndex(flip1)))->value == (*(gameBoard + getIndex(flip2)))->value;
 }
 
-void updateBoard(const Move &, const Move &, Cell **)
+void updateBoard(const Move &flip1, const Move &flip2, Cell **gameBoard)
 {
-
+    (*(gameBoard + getIndex(flip1)))->found = true;
+    (*(gameBoard + getIndex(flip2)))->found = true;
 }
 
 bool checkEndGame(Cell **gameBoard)
