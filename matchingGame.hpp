@@ -10,8 +10,8 @@ using std::string;
 const int
     BOARD_DIMENSION = 4,
     BOARD_SIZE = BOARD_DIMENSION * BOARD_DIMENSION,
-    MIN_FLIP_NUM = 1,                  // For use in input validation
-    MAX_SPACE_NUM = 4,
+    MIN_CELL_NUM = 1,                  // For use in input validation
+    MAX_CELL_NUM = 4,
     NUM_GAME_PIECES = 8;
 
 const char
@@ -21,7 +21,11 @@ const char
 
 
 
-const string PLAY_AGAIN = "Would you like to play again?";
+const string
+    PLAY_AGAIN = "Would you like to play again?",
+    ENTER_ROW = "Enter the row coordinate of the card you would like to flip (y-axis)(1-4)",
+    ENTER_COLUMN = "Enter the column coordinate of the card you would like to flip (x-axis)(1-4)",
+    INVALID_MOVE = "Invalid flip detected! Please make sure the cell exists and is not the same as the first flip!";
 
 // Structs
 struct Move {
@@ -36,9 +40,11 @@ struct Cell {
 
 // Helper function prototypes
 int getInteger(const int, const int);
-bool yesOrNo(string);
+bool yesOrNo(const string&);
 bool isThere(const Move&, Cell**);
 int getIndex(const Move&);
+void collectCoordinates(Move&);
+bool movesEquivalent(const Move&, const Move&);
 bool validateCharacterInput(const char, const char *,const int);
 void resetStream();
 
@@ -47,7 +53,7 @@ void displayInstructions();
 Cell ** createBoard();
 void shuffle( Cell **);
 void getMove(Move&, Cell**);
-void getMove(Move&, Move&, Cell**);
+void getMove(const Move&, Move&, Cell**);
 void showBoard(Cell**);
 void showBoard(const Move&, Cell**);
 void showBoard(const Move&, const Move&, Cell**);
