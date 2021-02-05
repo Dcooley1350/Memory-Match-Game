@@ -7,6 +7,7 @@
 using std::cin;
 using std::cout;
 using std::endl;
+using std::setw;
 using std::string;
 
 // Helper function definitions
@@ -101,30 +102,18 @@ void resetStream()
 // Game function definitions
 Cell ** createBoard()
 {
-    // Dynamically create gameboard
+    // Dynamically create game-board
     Cell ** gameBoard = new Cell*[BOARD_SIZE];
 
-    // Dynamically fill Cells to false and value=empty so we can gen random and check for empty in next loop
-    for (int i = 0; i < BOARD_SIZE ; ++i) {
-        *(gameBoard + i ) = new Cell{false, GAME_SPACES[0]};
-    }
-
-    // Loop through possible cell values and fill each cell
+    // Dynamically fill Cells
     for (int i = 0; i < NUM_GAME_PIECES; ++i) {
         // Fill 2 Cells with each value
         for (int j = 0; j < 2; ++j) {
-            // Keep generating random numbers until empty cell address is found
-            bool cellValueEmpty = false;
-            do {
-                int index = rand() % (BOARD_SIZE - 1);
-                if((*(gameBoard + index))->value == GAME_SPACES[0])
-                {
-                    cellValueEmpty = true;
-                    (*(gameBoard + index))->value = *(GAME_PIECES + i);
-                }
-            } while(!cellValueEmpty);
+            (*(gameBoard + (2 * i) + j )) = new Cell{ false, GAME_PIECES[i]};
         }
     }
+
+    shuffle(gameBoard);
     return gameBoard;
 }
 
@@ -143,14 +132,28 @@ void getMove(Move &, Move &, Cell **)
 
 }
 
-void showBoard(Cell **)
+void showBoard(Cell ** gameBoard)
 {
-
+    const int STREAM_WIDTH = 4;
+    for (int i = 0; i < BOARD_DIMENSION; ++i) {
+        for (int j = 0; j < BOARD_DIMENSION; ++j) {
+            cout << setw(STREAM_WIDTH)<< (*(gameBoard + (i * BOARD_DIMENSION) + j))->value;
+        }
+        //Output new line at the end of every 'row'
+        cout << std::endl;
+    }
 }
 
-void showBoard(const Move &, Cell **)
+void showBoard(const Move &, Cell ** gameBoard)
 {
-
+    const int STREAM_WIDTH = 4;
+    for (int i = 0; i < BOARD_DIMENSION; ++i) {
+        for (int j = 0; j < BOARD_DIMENSION; ++j) {
+            cout << setw(STREAM_WIDTH)<< (*(gameBoard + (i * BOARD_DIMENSION) + j))->value;
+        }
+        //Output new line at the end of every 'row'
+        cout << std::endl;
+    }
 }
 
 void showBoard(const Move &, const Move &, Cell **)

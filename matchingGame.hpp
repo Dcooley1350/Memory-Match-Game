@@ -8,10 +8,11 @@ using std::string;
 
 // Constants
 const int
-        BOARD_SIZE = 16,
-        MIN_FLIP_NUM = 1,                  // For use in input validation
-        MAX_SPACE_NUM = 4,
-        NUM_GAME_PIECES = 8;
+    BOARD_DIMENSION = 4,
+    BOARD_SIZE = BOARD_DIMENSION * BOARD_DIMENSION,
+    MIN_FLIP_NUM = 1,                  // For use in input validation
+    MAX_SPACE_NUM = 4,
+    NUM_GAME_PIECES = 8;
 
 const char
     GAME_PIECES [8] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' },

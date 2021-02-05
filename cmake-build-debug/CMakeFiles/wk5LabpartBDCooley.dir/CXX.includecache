@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jrwebdevin/Documents/cs162/week5/wk5LabpartBDCooley/matchingGame.cpp
+iomanip
+-
+iostream
+-
+limits
+-
+matchingGame.hpp
+/home/jrwebdevin/Documents/cs162/week5/wk5LabpartBDCooley/matchingGame.hpp
+
+/home/jrwebdevin/Documents/cs162/week5/wk5LabpartBDCooley/matchingGame.hpp
+string
+-
+
