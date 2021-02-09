@@ -44,6 +44,7 @@ int getInteger(const int, const int);
 bool yesOrNo(const string&);
 bool isThere(const Move&, Cell**);
 int getIndex(const Move&);
+int getIndex(int, int);
 void collectCoordinates(Move&);
 bool movesEquivalent(const Move&, const Move&);
 bool validateCharacterInput(const char, const char *,const int);

@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/jrwebdevin/Documents/cs162/week5/wk5LabpartBDCooley/main.cpp
-iostream
--
-matchingGame.hpp
-/home/jrwebdevin/Documents/cs162/week5/wk5LabpartBDCooley/matchingGame.hpp
-
 /home/jrwebdevin/Documents/cs162/week5/wk5LabpartBDCooley/matchingGame.cpp
 iomanip
 -

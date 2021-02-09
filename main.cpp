@@ -17,7 +17,7 @@ int main() {
         Cell ** gameBoard = createBoard();
         Move flip1{}, flip2{};
         int turnCount = 0;
-
+        // Start turn loop
         do {
             // Increment turn counter
             ++turnCount;

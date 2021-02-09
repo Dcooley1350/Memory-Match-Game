@@ -73,12 +73,18 @@ int getIndex(const Move &flip)
     return (flip.column * BOARD_DIMENSION + flip.row);
 }
 
+int getIndex(const int row, const int column)
+{
+    return row * BOARD_DIMENSION + column;
+}
+
 void collectCoordinates(Move &flip)
 {
     cout << ENTER_ROW << endl;
-    flip.row = getInteger(MIN_CELL_NUM, MAX_CELL_NUM);
+    // Subtract 1 to translate coordinate 1-4 into array value 0-3;
+    flip.row = getInteger(MIN_CELL_NUM, MAX_CELL_NUM) - 1;
     cout << ENTER_COLUMN << endl;
-    flip.column = getInteger(MIN_CELL_NUM, MAX_CELL_NUM);
+    flip.column = getInteger(MIN_CELL_NUM, MAX_CELL_NUM) - 1;
 }
 
 bool movesEquivalent(const Move &flip1, const Move &flip2)
@@ -156,6 +162,7 @@ void getMove(Move &flip, Cell **gameBoard)
         else
         {
             invalidMove = true;
+            cout << INVALID_MOVE << endl;
         }
     } while(invalidMove);
 }
@@ -183,7 +190,15 @@ void showBoard(Cell ** gameBoard)
 {
     for (int i = 0; i < BOARD_DIMENSION; ++i) {
         for (int j = 0; j < BOARD_DIMENSION; ++j) {
-            cout << setw(STREAM_WIDTH)<< (*(gameBoard + (i * BOARD_DIMENSION) + j))->value;
+            cout << setw(STREAM_WIDTH);
+            if((*(gameBoard + (i * BOARD_DIMENSION) + j))->found)
+            {
+                cout << GAME_SPACES[0];
+            }
+            else
+            {
+                cout << GAME_SPACES[1];
+            }
         }
         //Output new line at the end of every 'row'
         cout << std::endl;
@@ -194,16 +209,61 @@ void showBoard(const Move &flip, Cell ** gameBoard)
 {
     for (int i = 0; i < BOARD_DIMENSION; ++i) {
         for (int j = 0; j < BOARD_DIMENSION; ++j) {
-            cout << setw(STREAM_WIDTH)<< (*(gameBoard + getIndex(flip)))->value;
+            cout << setw(STREAM_WIDTH);
+            // If the Cell is found, show empty
+            if((*(gameBoard + (i * BOARD_DIMENSION) + j))->found)
+            {
+                cout << GAME_SPACES[0];
+            }
+            else
+            {
+                // If cell is at index of move, show value
+                if(getIndex(i,j) == getIndex(flip))
+                {
+                    cout << (*(gameBoard + getIndex(flip)))->value;
+                }
+                else
+                {
+                    // Show cell 'X' if cell is not found or flipped
+                    cout << GAME_SPACES[1];
+                }
+            }
         }
         //Output new line at the end of every 'row'
         cout << std::endl;
     }
 }
 
-void showBoard(const Move &, const Move &, Cell **)
+void showBoard(const Move &flip1, const Move &flip2, Cell **gameBoard)
 {
-
+    for (int i = 0; i < BOARD_DIMENSION; ++i) {
+        for (int j = 0; j < BOARD_DIMENSION; ++j) {
+            cout << setw(STREAM_WIDTH);
+            // If Move index equals Cell index, show the value of the Cell
+            if(getIndex(i,j) == getIndex(flip1))
+            {
+                cout << (*(gameBoard + getIndex(flip1)))->value;
+            }
+            else if (getIndex(i,j) == getIndex(flip2))
+            {
+                cout << (*(gameBoard + getIndex(flip2)))->value;
+            }
+            else
+            {
+                // Show default 'X' or ' ' if Cells are not flip
+                if((*(gameBoard + (i * BOARD_DIMENSION) + j))->found)
+                {
+                    cout << GAME_SPACES[0];
+                }
+                else
+                {
+                    cout << GAME_SPACES[1];
+                }
+            }
+        }
+        //Output new line at the end of every 'row'
+        cout << std::endl;
+    }
 }
 
 bool checkMatch(const Move &flip1, const Move &flip2, Cell **gameBoard)
@@ -220,7 +280,7 @@ void updateBoard(const Move &flip1, const Move &flip2, Cell **gameBoard)
 
 bool checkEndGame(Cell **gameBoard)
 {
-    bool cellsRemaining;
+    bool cellsRemaining = false;
     for (int i = 0; i < BOARD_SIZE; ++i) {
         // Check found property in each cell, if all are found, game is over
         if(!(*(gameBoard + i))->found)
