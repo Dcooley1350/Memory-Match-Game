@@ -39,7 +39,8 @@ int getInteger(const int min, const int max)
 bool yesOrNo(const string &question)
 {
     char userInput;
-    bool playAgain, validInput;
+    bool isYes, validInput;
+    // Ask user question
     cout << question << endl;
     do {
         cin >> userInput;
@@ -55,12 +56,12 @@ bool yesOrNo(const string &question)
         }
     } while(!validInput);
     if(userInput == 'Y'){
-        playAgain = true;
+        isYes = true;
     }
     else {
-        playAgain = false;
+        isYes = false;
     }
-    return playAgain;
+    return isYes;
 }
 
 bool isThere(const Move &flip, Cell** gameBoard)
@@ -191,6 +192,7 @@ void showBoard(Cell ** gameBoard)
     for (int i = 0; i < BOARD_DIMENSION; ++i) {
         for (int j = 0; j < BOARD_DIMENSION; ++j) {
             cout << setw(STREAM_WIDTH);
+            // Show all cells either found or not found
             if((*(gameBoard + (i * BOARD_DIMENSION) + j))->found)
             {
                 cout << GAME_SPACES[0];
@@ -274,6 +276,7 @@ bool checkMatch(const Move &flip1, const Move &flip2, Cell **gameBoard)
 
 void updateBoard(const Move &flip1, const Move &flip2, Cell **gameBoard)
 {
+    // Set Cells at the move locations to found
     (*(gameBoard + getIndex(flip1)))->found = true;
     (*(gameBoard + getIndex(flip2)))->found = true;
 }

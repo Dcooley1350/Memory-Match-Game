@@ -55,7 +55,11 @@ int main() {
         // Notify of game end and results
         std::cout << "Game Over! You win!" << std::endl
         << "It took you " << turnCount << " turns to finish the game! Nice work!" << std::endl;
-
+        // Garbage collect all Cells and pointers to cells.
+        for (int i = 0; i < BOARD_SIZE; ++i) {
+            delete  *(gameBoard + i);
+        }
+        delete [] gameBoard;
     } while(yesOrNo(PLAY_AGAIN));
 
     std::cout << "Thank you for playing memory match! BYE!" << std::endl;

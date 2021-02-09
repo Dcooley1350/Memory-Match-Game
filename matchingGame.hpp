@@ -40,20 +40,20 @@ struct Cell {
 };
 
 // Helper function prototypes
-int getInteger(const int, const int);
+int getInteger(int, int);
 bool yesOrNo(const string&);
 bool isThere(const Move&, Cell**);
 int getIndex(const Move&);
 int getIndex(int, int);
 void collectCoordinates(Move&);
 bool movesEquivalent(const Move&, const Move&);
-bool validateCharacterInput(const char, const char *,const int);
+bool validateCharacterInput(char, const char *, int);
 void resetStream();
 
 // Game function prototypes
 void displayInstructions();
 Cell ** createBoard();
-void shuffle( Cell **);
+void shuffle(Cell **);
 void getMove(Move&, Cell**);
 void getMove(const Move&, Move&, Cell**);
 void showBoard(Cell**);
