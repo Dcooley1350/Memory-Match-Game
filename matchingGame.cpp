@@ -66,16 +66,19 @@ bool yesOrNo(const string &question)
 
 bool isThere(const Move &flip, Cell** gameBoard)
 {
+    // Check if the Cell at the index of the move if found yet or not
     return !(*(gameBoard + getIndex(flip)))->found;
 }
 
 int getIndex(const Move &flip)
 {
+    // Flatten the array index from the column and row values in a Move
     return (flip.column * BOARD_DIMENSION + flip.row);
 }
 
 int getIndex(const int row, const int column)
 {
+    // Flatten the array index from a row and column coordinate
     return row * BOARD_DIMENSION + column;
 }
 
@@ -90,11 +93,13 @@ void collectCoordinates(Move &flip)
 
 bool movesEquivalent(const Move &flip1, const Move &flip2)
 {
+    // Check if the 2 moves have the same row and column values
     return (flip1.row == flip2.row && flip1.column == flip2.column);
 }
 
 bool validateCharacterInput(const char input, const char *validInputs, const int validInputsLength)
 {
+    // Check if the input value exists in the array of acceptable inputs
     bool validInput = false;
     for (int i = 0; i < validInputsLength; ++i) {
         if(validInputs[i] == input) {
@@ -145,6 +150,7 @@ Cell ** createBoard()
 
 void shuffle(Cell **gameBoard)
 {
+    // Shuffle all the cells into random order
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     shuffle(gameBoard, (gameBoard + BOARD_SIZE), std::default_random_engine(seed));
 }
